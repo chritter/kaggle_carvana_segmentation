@@ -20,10 +20,14 @@ if __name__ == '__main__':
 
     folds = pd.read_csv('src/folds_csv.csv')
 
+    # work with just one fold for now
+    folds = folds[folds['fold']==0]
+
     num_folds = folds['fold'].nunique()
 
     angles = ['0' + str(x) for x in range(1, 10)] + [str(x) for x in range(10, 17)]
 
+    # create directories for each fold
     for fold in range(num_folds):
 
         (local_data_path / str(fold) / 'train' / 'images').mkdir(exist_ok=True, parents=True)
@@ -33,7 +37,9 @@ if __name__ == '__main__':
         (local_data_path / str(fold) / 'val' / 'masks').mkdir(exist_ok=True, parents=True)
 
     for i in tqdm(folds.index):
+        # each car has its id
         car_id = folds.loc[i, 'id']
+        # number of the fold
         fold = folds.loc[i, 'fold']
 
         for angle in angles:

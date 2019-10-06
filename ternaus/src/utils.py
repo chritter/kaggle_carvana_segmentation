@@ -12,6 +12,7 @@ from torch import nn
 from torch.autograd import Variable
 from torchvision.transforms import ToTensor, Normalize, Compose
 
+print('reading input config file...')
 config = json.loads(open(str(Path('__file__').absolute().parent.parent / 'config' / 'config.json')).read())
 
 DATA_ROOT = Path(config['input_data_dir']).expanduser()
