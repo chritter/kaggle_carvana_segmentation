@@ -8,7 +8,8 @@ import utils
 
 if __name__ == '__main__':
     global_data_path = utils.DATA_ROOT
-    local_data_path = Path('.').absolute()
+    # CR added Data/input
+    local_data_path = Path('Data/input').absolute()
 
     local_data_path.mkdir(exist_ok=True)
 
@@ -21,7 +22,7 @@ if __name__ == '__main__':
     folds = pd.read_csv('src/folds_csv.csv')
 
     # work with just one fold for now
-    folds = folds[folds['fold']==0]
+    #folds = folds[folds['fold']==0]
 
     num_folds = folds['fold'].nunique()
 

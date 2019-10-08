@@ -117,7 +117,9 @@ def train(args, model: nn.Module, criterion, *, train_loader, valid_loader,
                 batch_size = inputs.size(0)
                 step += 1
                 tq.update(batch_size)
-                losses.append(loss.data[0])
+                #print('loss test ',loss.item())
+                #losses.append(loss.data[0]) CR changed
+                losses.append(loss.item())
                 mean_loss = np.mean(losses[-report_each:])
                 tq.set_postfix(loss='{:.5f}'.format(mean_loss))
 

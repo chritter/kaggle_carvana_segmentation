@@ -13,6 +13,7 @@ from torch import nn
 from torch.optim import Adam
 from torch.utils.data import DataLoader, Dataset
 from unet_models import Loss, UNet11
+import os
 
 img_cols, img_rows = 1280, 1920
 
@@ -22,9 +23,12 @@ Size = Tuple[int, int]
 class CarvanaDataset(Dataset):
     def __init__(self, root: Path, to_augment=False):
         # TODO This potentially may lead to bug.
+        print('root path: ',root)
         self.image_paths = sorted(root.joinpath('images').glob('*.jpg'))
+        print('image paths: ',self.image_paths )
         self.mask_paths = sorted(root.joinpath('masks').glob('*'))
         self.to_augment = to_augment
+        print('CarvanaDataset',self.image_paths)
 
     def __len__(self):
         return len(self.image_paths)
@@ -174,7 +178,10 @@ def main():
     train_root = utils.DATA_ROOT / str(args.fold) / 'train'
     valid_root = utils.DATA_ROOT / str(args.fold) / 'val'
 
+    print('create valid loader')
     valid_loader = make_loader(valid_root)
+
+    print('create train loader ',os.getcwd())
     train_loader = make_loader(train_root, to_augment=True, shuffle=True)
 
     root.joinpath('params.json').write_text(
