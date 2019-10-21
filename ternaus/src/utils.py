@@ -205,7 +205,7 @@ def train(args, model: nn.Module, criterion, *, train_loader, valid_loader,
             # save model
             save(epoch + 1)
 
-            # returns avg loss and and dice loss
+            # returns avg loss and and dice loss #
             valid_metrics = validation(model, criterion, valid_loader)
 
             # los results
