@@ -1,5 +1,5 @@
 {
-  "input_data_dir": "./ternaus/Data/input/",
-  "submissions_dir": "./ternaus/Data/submissions/",
-  "models_dir": "./ternaus/Data/Models/"
+  "input_data_dir": "Data/input/",
+  "submissions_dir": "Data/submissions/",
+  "models_dir": "Data/Models/"
 }
