@@ -107,6 +107,13 @@ def load_mask(path):
 
 
 def validation(model: nn.Module, criterion, valid_loader) -> Dict[str, float]:
+    '''
+    Calculates the validation error based on validation data. Returns Validation loss (incl. dice loss) as avg loss.
+    :param model:
+    :param criterion:
+    :param valid_loader:
+    :return:
+    '''
     model.eval()
     losses = []
 
@@ -138,6 +145,8 @@ def get_dice(y_true, y_pred):
 
 
 def main():
+
+    # parse command line arguments
     parser = argparse.ArgumentParser()
     arg = parser.add_argument
     arg('--dice-weight', type=float)
@@ -155,17 +164,20 @@ def main():
     root = Path(args.root)
     root.mkdir(exist_ok=True, parents=True)
 
+    # define the TernausNet
     model = UNet11()
 
+    # allows to use multiple GPU's
     device_ids = list(map(int, args.device_ids.split(',')))
     model = nn.DataParallel(model, device_ids=device_ids).cuda()
 
+    # cross entropy + dice loss
     loss = Loss()
 
     def make_loader(ds_root: Path, to_augment=False, shuffle=False):
         return DataLoader(
             dataset=CarvanaDataset(ds_root, to_augment=to_augment),
-            shuffle=shuffle,
+            shuffle=shuffle, #reshuffle each epoch
             num_workers=args.workers,
             batch_size=args.batch_size,
             pin_memory=True
@@ -181,7 +193,7 @@ def main():
         json.dumps(vars(args), indent=True, sort_keys=True))
 
     utils.train(
-        init_optimizer=lambda lr: Adam(model.parameters(), lr=lr),
+        init_optimizer=lambda lr: Adam(model.parameters(), lr=lr), #initializer function for Adam
         args=args,
         model=model,
         criterion=loss,

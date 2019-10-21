@@ -1,3 +1,5 @@
+# Implementation of TernausNet (UNet11)
+
 from torch import nn
 from torch.nn import functional as F
 import torch
@@ -111,13 +113,15 @@ class DecoderBlock(nn.Module):
 
 class Loss:
     def __init__(self, dice_weight=1):
-        self.nll_loss = nn.BCELoss()
+        self.nll_loss = nn.BCELoss() # Binary Cross Entropy loss
         self.dice_weight = dice_weight
 
     def __call__(self, outputs, targets):
         loss = self.nll_loss(outputs, targets)
         if self.dice_weight:
             eps = 1e-15
+
+            # calculates dice loss and combine it with the cross entropy loss
             dice_target = (targets == 1).float()
             dice_output = outputs
             intersection = (dice_output * dice_target).sum()
