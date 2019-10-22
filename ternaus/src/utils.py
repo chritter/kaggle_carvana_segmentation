@@ -111,6 +111,7 @@ def train(args, model: nn.Module, criterion, *, train_loader, valid_loader,
     best_model_path = root / 'best-model_{fold}.pt'.format(fold=fold)
 
     # if model checkpoints exist, load the latest
+
     if model_path.exists():
         state = torch.load(str(model_path))
         epoch = state['epoch']
