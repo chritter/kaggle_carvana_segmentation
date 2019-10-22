@@ -1,5 +1,5 @@
 {
   "input_data_dir": "Data/input/",
   "submissions_dir": "Data/submissions/",
-  "models_dir": "Data/Models/"
+  "models_dir": "/content/drive/My Drive/MyConstrStarts/kaggle_carvana_segmentation"
 }
