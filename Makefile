@@ -1,11 +1,11 @@
 requirements:
-	pip install -r requirements
+	pip install -r requirements.txt
 
 data:
-	mkdir ~/.kaggle
+	mkdir -p ~/.kaggle
 	echo '{"username":"christianhritter","key":$(KAGGLE_SECRET_ACCESS_KEY)}' > ~/.kaggle/kaggle.json
 	chmod 600 ~/.kaggle/kaggle.json
-	mkdir carvana-image-masking-challenge
+	mkdir -p carvana-image-masking-challenge
 	kaggle competitions download -c carvana-image-masking-challenge  -p carvana-image-masking-challenge
 	cd carvana-image-masking-challenge; unzip -q "*.zip"
 
@@ -22,6 +22,8 @@ install_anaconda:
 
 
 create_env:
+	. /opt/conda/etc/profile.d/conda.sh
+	export PATH=/opt/conda/bin:$(PATH)
 	conda create -n carvana python=3.6
 	source activate carvana
 
