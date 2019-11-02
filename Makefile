@@ -3,7 +3,7 @@ requirements:
 
 data:
 	mkdir -p ~/.kaggle
-	echo '{"username":"christianhritter","key":$(KAGGLE_SECRET_ACCESS_KEY)}' > ~/.kaggle/kaggle.json
+	echo '{"username":"christianhritter","key":"$(KAGGLE_SECRET_ACCESS_KEY)"}' > ~/.kaggle/kaggle.json
 	chmod 600 ~/.kaggle/kaggle.json
 	mkdir -p carvana-image-masking-challenge
 	kaggle competitions download -c carvana-image-masking-challenge  -p carvana-image-masking-challenge

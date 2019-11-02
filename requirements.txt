@@ -4,7 +4,7 @@ numpy
 opencv_python==3.2.0.7
 pandas
 scipy
-tqdm==4.8.4
+tqdm
 pathlib2==2.3.0
 tqdm==4.8.4
 joblib==0.7.1
